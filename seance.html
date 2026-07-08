@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fiche interactive — Terminale STMG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+  <div id="bg-decor">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
+  </div>
+
+  <main id="deck"></main>
+
+  <div id="progress-track" class="chrome">
+    <div id="progress-fill"></div>
+  </div>
+
+  <div id="nav-buttons" class="chrome">
+    <button id="btn-prev" class="nav-btn" aria-label="Précédent">←</button>
+    <button id="btn-next" class="nav-btn" aria-label="Suivant">→</button>
+    <button id="btn-fullscreen" class="nav-btn" aria-label="Plein écran">⛶</button>
+  </div>
+
+  <div id="slide-dots" class="chrome"></div>
+  <div id="slide-counter" class="chrome">1 / 1</div>
+
+  <script src="assets/confetti.js"></script>
+  <script src="assets/engine.js"></script>
+</body>
+</html>

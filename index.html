@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fiches interactives — Terminale STMG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    background: #f5f6fb; color: #14162b;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  #bg-decor { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  #bg-decor .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .35; animation: float 20s ease-in-out infinite; }
+  #bg-decor .blob:nth-child(1) { width: 34vw; height: 34vw; top: -8%; left: -6%; background: #4f46e5; }
+  #bg-decor .blob:nth-child(2) { width: 26vw; height: 26vw; bottom: -10%; right: -6%; background: #fb7a24; animation-delay: -6s; }
+  #bg-decor .blob:nth-child(3) { width: 20vw; height: 20vw; bottom: 8%; left: 10%; background: #ec4899; animation-delay: -3s; }
+  @keyframes float { 0%,100% { transform: translate(0,0) scale(1);} 50% { transform: translate(3vw,4vw) scale(1.06);} }
+
+  main {
+    position: relative; z-index: 1;
+    max-width: 980px; margin: 0 auto;
+    padding: 5vh 6vw 8vh;
+  }
+  header { text-align: center; margin-bottom: 3rem; }
+  header .kicker {
+    text-transform: uppercase; letter-spacing: .12em; font-weight: 700;
+    font-size: .95rem; color: #4f46e5;
+  }
+  header h1 {
+    font-family: "Fredoka", sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin: .3rem 0 .6rem;
+  }
+  header p { font-size: 1.15rem; color: #4b4e6b; max-width: 56ch; margin: 0 auto; }
+
+  #list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.4rem;
+  }
+  .card {
+    display: block;
+    background: #fff;
+    border-radius: 24px;
+    padding: 1.6rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 16px 40px -18px rgba(20,22,43,.25);
+    border: 3px solid transparent;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: #c7d2fe;
+    box-shadow: 0 24px 50px -18px rgba(79,70,229,.35);
+  }
+  .card .emoji { font-size: 2.2rem; }
+  .card h2 { font-family: "Fredoka", sans-serif; font-size: 1.35rem; margin: .5rem 0 .3rem; }
+  .card p { color: #4b4e6b; font-size: 1rem; line-height: 1.4; margin: 0; }
+  .card .go { display: inline-block; margin-top: .9rem; font-weight: 700; color: #4f46e5; }
+
+  #empty {
+    text-align: center; color: #4b4e6b; font-size: 1.1rem;
+    background: #fff; border-radius: 20px; padding: 2rem;
+  }
+</style>
+</head>
+<body>
+
+  <div id="bg-decor"><div class="blob"></div><div class="blob"></div><div class="blob"></div></div>
+
+  <main>
+    <header>
+      <p class="kicker">Terminale STMG · Mathématiques</p>
+      <h1>Fiches interactives 📚⚡</h1>
+      <p>Une présentation par séance : le cours à trous, les automatismes et le bilan animé, prêts à vidéoprojeter.</p>
+    </header>
+
+    <div id="list"></div>
+    <div id="empty" style="display:none;">Aucune séance dans le manifest pour l'instant. Ajoute-en une dans <code>data/manifest.js</code>.</div>
+  </main>
+
+  <script src="data/manifest.js"></script>
+  <script>
+    const list = document.getElementById("list");
+    const sessions = window.SESSIONS_MANIFEST || [];
+    if (sessions.length === 0) {
+      document.getElementById("empty").style.display = "block";
+    } else {
+      sessions.forEach((s) => {
+        const a = document.createElement("a");
+        a.className = "card";
+        a.href = `seance.html?s=${encodeURIComponent(s.id)}`;
+        a.innerHTML = `
+          <div class="emoji">${s.emoji || "📄"}</div>
+          <h2>${s.title}</h2>
+          <p>${s.subtitle || ""}</p>
+          <span class="go">Ouvrir la séance →</span>
+        `;
+        list.appendChild(a);
+      });
+    }
+  </script>
+</body>
+</html>
